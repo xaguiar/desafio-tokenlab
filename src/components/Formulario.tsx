@@ -7,11 +7,13 @@ interface FormularioProps {
     evento: Evento
     eventoChange?: (evento: Evento) => void
     cancelado?: () => void
+    email?: string
 }
 
 export default function Formulario(props: FormularioProps) {
 
     const id = props.evento?.id
+    const email = props.email
     const [nome, setNome] = useState(props.evento?.nome ?? "")
     const [descricao, setDescricao] = useState(props.evento?.descricao ?? "")
     const [inicio, setInicio] = useState(props.evento?.inicio ?? "")
@@ -27,6 +29,12 @@ export default function Formulario(props: FormularioProps) {
                 valor={id}
                 className="mb-4"
             /> : false}
+            <Entrada 
+                somenteLeitura
+                texto="E-mail" 
+                valor={email}
+                className="mb-4"
+            />
             <Entrada 
                 texto="Nome" 
                 valor={nome}
@@ -62,7 +70,7 @@ export default function Formulario(props: FormularioProps) {
                 change={setHoraFim}/>
             <div className="flex justify-end mt-7">
                 <Botao cor="blue" className="mr-2" 
-                    onClick={() => props.eventoChange?.(new Evento(nome,descricao,inicio,fim,horaInicio,horaFim,id))}>
+                    onClick={() => props.eventoChange?.(new Evento(nome,descricao,inicio,fim,horaInicio,horaFim,email,id))}>
                     {id ? "Alterar" : "Salvar"}
                 </Botao>
                 <Botao cor="gray" onClick={props.cancelado}>

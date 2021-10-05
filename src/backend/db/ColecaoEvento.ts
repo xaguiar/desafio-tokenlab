@@ -7,21 +7,23 @@ export default class ColecaoEvento implements EventoRepositorio {
     #conversor = {
         toFirestore(evento: Evento) {
             return {
-               nome: evento.nome,
-               descricao: evento.descricao,
-               inicio: evento.inicio,
-               fim: evento.fim,
-               horaInicio: evento.horaInicio,
-               horaFim: evento.horaFim
+                nome: evento.nome,
+                descricao: evento.descricao,
+                inicio: evento.inicio,
+                fim: evento.fim,
+                horaInicio: evento.horaInicio,
+                horaFim: evento.horaFim,
+                email: evento.email
             }
         },
         fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): Evento {
             const dados = snapshot.data(options)
-            return new Evento(dados.nome, dados.descricao, dados.inicio, dados.fim, dados.horaInicio, dados.horaFim, snapshot.id)
+            return new Evento(dados.nome, dados.descricao, dados.inicio, dados.fim, dados.horaInicio, dados.horaFim, dados.email, snapshot.id)
         }
     }
 
     async salvar(evento: Evento): Promise<Evento> {
+     
         if (evento?.id) {
             await this.colecao().doc(evento.id).set(evento)
             return evento
@@ -46,5 +48,10 @@ export default class ColecaoEvento implements EventoRepositorio {
             .firestore().collection("eventos")
             .withConverter(this.#conversor)
     }
+
+    // private usuarioRetorno(): string {
+    //     const { user } = useUser()
+    //     return user
+    // }
 
 }

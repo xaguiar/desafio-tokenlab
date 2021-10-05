@@ -5,6 +5,7 @@ interface TabelaProps {
     eventos: Evento[]
     eventoSelecionado?: (evento: Evento) => void
     eventoExcluido?: (evento: Evento) => void
+    email: string
 }
 
 export default function Tabela(props) {
@@ -15,6 +16,7 @@ export default function Tabela(props) {
         return ( 
             <tr>
                 <th className="text-left p-4">Código</th>
+                <th className="text-left p-4">E-mail</th>
                 <th className="text-left p-4">Nome</th>
                 <th className="text-left p-4">Descrição</th>
                 <th className="text-left p-4">Início</th>
@@ -51,10 +53,12 @@ export default function Tabela(props) {
 
     function renderizarDados() {
         return props.eventos?.map((evento, i) => {
+            if (evento.email != props.email) return false
             return (
                 <tr key = {evento.id}
                     className={`${i % 2 === 0 ? "bg-green-200" : "bg-green-100"}`}>
                     <td className="text-left p-4">{evento.id}</td>
+                    <td className="text-left p-4">{evento.email}</td>
                     <td className="text-left p-4">{evento.nome}</td>
                     <td className="text-left p-4">{evento.descricao}</td>
                     <td className="text-left p-4">{evento.inicio + " às " + evento.horaInicio}</td>

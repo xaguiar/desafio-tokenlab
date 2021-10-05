@@ -3,10 +3,14 @@ import EventoRepositorio from "../core/EventoRepositorio";
 import { useEffect, useState } from "react";
 import ColecaoEvento from "../backend/db/ColecaoEvento";
 import useTabelaOuForm from "./useTabelaOuForm";
+import { useUser } from "../auth/useUser";
+
 
 export default function useEventos () {
 
     const repo: EventoRepositorio = new ColecaoEvento()
+
+    const { user, logout } = useUser()
 
     const {tabelaVisivel, exibirTabela, exibirFomulario} = useTabelaOuForm()
 
@@ -16,10 +20,12 @@ export default function useEventos () {
     useEffect(obter, [])
 
     function obter() {
+        console.log(user)
         repo.obter().then(eventos => {
         setEventos(eventos)
         exibirTabela()
         })
+        console.log(user)
     }
 
     function selecionarEvento(evento : Evento) {

@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/backend/config.ts", "src/pages/index.tsx", "src/pages/minhaArea.ts", "src/pages/signin.js", "src/hooks/useEventos.ts", "src/auth/useUser.js"  ],
   "exclude": [
     "node_modules"
   ]

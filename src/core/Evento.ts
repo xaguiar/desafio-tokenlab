@@ -1,5 +1,6 @@
 export default class Evento {
     #id: string
+    #email: string
     #nome: string
     #descricao: string
     #inicio: any
@@ -7,7 +8,8 @@ export default class Evento {
     #horaInicio: any
     #horaFim: any
 
-    constructor(nome: string, descricao: string, inicio: any, fim: any, horaInicio: any, horaFim: any, id: string = null) {
+    constructor(nome: string, descricao: string, inicio: any, fim: any, horaInicio: any, horaFim: any, email: string, id: string = null) {
+        this.#email = email
         this.#nome = nome
         this.#descricao = descricao
         this.#inicio = inicio
@@ -19,6 +21,10 @@ export default class Evento {
 
     static vazio() {
         return new Evento("","",null,null,"","","")
+    }
+
+    get email() {
+        return this.#email
     }
 
     get id() {
