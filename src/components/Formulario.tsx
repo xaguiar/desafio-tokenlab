@@ -8,6 +8,7 @@ interface FormularioProps {
     eventoChange?: (evento: Evento) => void
     cancelado?: () => void
     email?: string
+    rodape?: string
 }
 
 export default function Formulario(props: FormularioProps) {

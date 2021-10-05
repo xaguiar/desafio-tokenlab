@@ -9,7 +9,7 @@ import useEventos from "../hooks/useEventos"
 
 function minhaArea() {
 
-  const {evento, eventos, selecionarEvento, excluirEvento, salvarEvento, novoEvento, tabelaVisivel, exibirTabela} = useEventos()
+  const {evento, eventos, selecionarEvento, excluirEvento, salvarEvento, novoEvento, tabelaVisivel, exibirTabela, erroVisivel} = useEventos()
   const { user, logout } = useUser()
   console.log(user)
   
@@ -47,9 +47,10 @@ function minhaArea() {
             email = {user?.email}
             evento={evento}
             eventoChange={salvarEvento}
-            cancelado={exibirTabela}
+            cancelado={exibirTabela}       
           />
         ) }
+        {erroVisivel ? (<h1 className="px-5 py-2 text-1xl text-red-600 justify-end">Não é possível sobrescrever eventos com o mesmo nome. Favor alterar ou inserir outro evento.</h1>) : false}
       </Layout>
     </div>
   )

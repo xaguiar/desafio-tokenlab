@@ -22,15 +22,23 @@ export default class ColecaoEvento implements EventoRepositorio {
         }
     }
 
-    async salvar(evento: Evento): Promise<Evento> {
-     
-        if (evento?.id) {
-            await this.colecao().doc(evento.id).set(evento)
-            return evento
+    async salvar(evento: Evento): Promise<[Evento,string]> {
+        
+        const snapshot = await this.colecao().where("email","==",evento?.email).where("nome","==",evento?.nome).get()
+        console.log(snapshot)
+        if (snapshot.empty) {
+            console.log('No matching documents. Saving');
+            if (evento?.id) {
+                await this.colecao().doc(evento.id).set(evento)
+                return [evento,"sucesso"]
+            } else {
+                const docRef = await this.colecao().add(evento)
+                const doc = await docRef.get()
+                return [doc.data(),"sucesso"]
+            }
         } else {
-            const docRef = await this.colecao().add(evento)
-            const doc = await docRef.get()
-            return doc.data()
+            console.log("Já existem registros iguais!")
+            return [evento,"falha"]
         }
     }
 

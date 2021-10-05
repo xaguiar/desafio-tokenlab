@@ -10,9 +10,9 @@ export default function useEventos () {
 
     const repo: EventoRepositorio = new ColecaoEvento()
 
-    const { user, logout } = useUser()
+    const { user } = useUser()
 
-    const {tabelaVisivel, exibirTabela, exibirFomulario} = useTabelaOuForm()
+    const {tabelaVisivel, exibirTabela, exibirFomulario, erroVisivel, exibirErro, removerErro} = useTabelaOuForm()
 
     const [evento, setEvento] = useState<Evento>(Evento.vazio())
     const [eventos, setEventos] = useState<Evento[]>([])
@@ -39,8 +39,16 @@ export default function useEventos () {
     }
 
     async function salvarEvento(evento: Evento) {
-        await repo.salvar(evento)
-        obter()
+        const retorno = await repo.salvar(evento)
+        if (retorno[1] == "falha") {
+            console.log("falhou") 
+            exibirErro()
+        }
+        else {
+            obter()
+            console.log("salvou")
+            removerErro()
+        }
     }
 
     function novoEvento() {
@@ -57,6 +65,7 @@ export default function useEventos () {
         selecionarEvento,
         obter,
         tabelaVisivel,
-        exibirTabela
+        exibirTabela,
+        erroVisivel
     }
 }

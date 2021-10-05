@@ -1,4 +1,4 @@
-import Botao from "../components/Botao";
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Layout from "../components/Layout";
 
 export default function Home() {
@@ -12,9 +12,9 @@ export default function Home() {
       <a href="/minhaArea" className={`
             flex flex-col
             bg-white text-blue-600
-            rounded-md text-3xl text-center
+            rounded-md text-2xl text-center
         `}>
-        Clique aqui para logar
+        Vamos começar!
       </a>
     </Layout>
     </div>
